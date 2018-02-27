@@ -1,7 +1,5 @@
 package model.items;
 
-import model.items.summaryItems.SummaryItem;
-
 public abstract class Item {
 
 	public abstract String getName();
@@ -16,7 +14,7 @@ public abstract class Item {
 	
 	public String getTicketName() {
 		if(getSummaryItem()!=null) {
-			return getSummaryItem().getTicketName();
+			return getSummaryItem().getName();
 		}else {
 			return null;
 		}

@@ -4,30 +4,44 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.KeyStroke;
 
 import model.CashierController;
 import model.items.Item;
 
 import javax.swing.AbstractListModel;
+import javax.swing.Action;
 import javax.swing.DefaultListSelectionModel;
 
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 
 public class CashierGui {
 
 	private JFrame frame;
-	private JLabel numberLabel = new JLabel("14");
+	private JLabel numberLabel = new JLabel("1");
 	private JLabel hourLabel = new JLabel("22:11");
+	private JList<String> ticketList = new JList<>();
+	private JList<String> summaryList = new JList<>();
+	private JList<String> bbqList = new JList<>();
 
 	
 	private CashierController controller;
@@ -51,24 +65,9 @@ public class CashierGui {
 	 * Create the application.
 	 */
 	public CashierGui() {
-		controller = new CashierController();
+		controller = new CashierController(this);
 		initialize();
 		frame.setVisible(true);
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				while(true) {
-					ticketList.add("a");
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-		});
 	}
 
 	/**
@@ -80,24 +79,18 @@ public class CashierGui {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JList<String> list_1 = new JList<>();
-		list_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		list_1.setModel(new MyListModel<String>(ticketList));
-		list_1.setBounds(1307, 211, 257, 642);
-		frame.getContentPane().add(list_1);
-		
-		JList<String> list = new JList<>();
-		list.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		list.setModel(new MyListModel<String>(summaryList));
-		list.setBounds(1582, 207, 292, 127);
-		frame.getContentPane().add(list);
-		
-		JList<String> samenVatting = new JList<>();
-		samenVatting.setModel(new MyListModel<String>(bbqList));
-		samenVatting.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		samenVatting.setBounds(1582, 381, 292, 81);
-		samenVatting.setSelectionModel(new DisabledItemSelectionModel());
-		frame.getContentPane().add(samenVatting);
+		ticketList.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		ticketList.setBounds(1307, 211, 257, 642);
+		frame.getContentPane().add(ticketList);
+		summaryList.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		summaryList.setBounds(1582, 207, 292, 127);
+		summaryList.setSelectionModel(new DisabledItemSelectionModel());
+		frame.getContentPane().add(summaryList);
+
+		bbqList.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		bbqList.setBounds(1582, 381, 292, 81);
+		bbqList.setSelectionModel(new DisabledItemSelectionModel());
+		frame.getContentPane().add(bbqList);
 		
 		JLabel lblKlaarTeMaken = new JLabel("Klaar te maken voor deze bestelling:");
 		lblKlaarTeMaken.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -157,11 +150,11 @@ public class CashierGui {
 		button_6.addActionListener(new NumberSelector(6));
 		frame.getContentPane().add(button_6);
 		
-		JButton button_7 = new JButton("9");
-		button_7.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_7.setBounds(1778, 571, 73, 73);
-		button_7.addActionListener(new NumberSelector(9));
-		frame.getContentPane().add(button_7);
+		JButton button_9 = new JButton("9");
+		button_9.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		button_9.setBounds(1778, 571, 73, 73);
+		button_9.addActionListener(new NumberSelector(9));
+		frame.getContentPane().add(button_9);
 		
 		JButton button_8 = new JButton("8");
 		button_8.setFont(new Font("Tahoma", Font.PLAIN, 35));
@@ -169,11 +162,11 @@ public class CashierGui {
 		button_8.addActionListener(new NumberSelector(8));
 		frame.getContentPane().add(button_8);
 		
-		JButton button_9 = new JButton("7");
-		button_9.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_9.setBounds(1612, 571, 73, 73);
-		button_9.addActionListener(new NumberSelector(7));
-		frame.getContentPane().add(button_9);
+		JButton button_7 = new JButton("7");
+		button_7.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		button_7.setBounds(1612, 571, 73, 73);
+		button_7.addActionListener(new NumberSelector(7));
+		frame.getContentPane().add(button_7);
 		
 		JButton button_bck = new JButton("<-");
 		button_bck.setFont(new Font("Tahoma", Font.PLAIN, 35));
@@ -335,7 +328,6 @@ public class CashierGui {
 		frame.getContentPane().add(btnkipRundappelmoes);
 		
 		JButton btnkipnatuur = new JButton("<html>Kip (2)<br />Natuur</html>");
-		btnkipnatuur.addActionListener(new ItemAdder(CashierController.KIP_KIP_NATUUR));
 		btnkipnatuur.setIcon(new ImageIcon(CashierGui.class.getResource("/resources/KipNatuur.png")));
 		btnkipnatuur.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipnatuur.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -670,7 +662,7 @@ public class CashierGui {
 		btnSoep.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnSoep.setForeground(Color.WHITE);
 		btnSoep.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnSoep.setBackground(new Color(102, 51, 51));
+		btnSoep.setBackground(new Color(0, 0, 0));
 		btnSoep.setBounds(10, 829, 141, 141);
 		btnSoep.addActionListener(new ItemAdder(CashierController.SOEP));
 		frame.getContentPane().add(btnSoep);
@@ -684,8 +676,98 @@ public class CashierGui {
 		btnBonnetje.setBounds(312, 829, 141, 141);
 		btnBonnetje.addActionListener(new ItemAdder(CashierController.BON));
 		frame.getContentPane().add(btnBonnetje);
+		
+		addKeyBindingToClick('0',button);
+		addKeyBindingToClick('1',button_1);
+		addKeyBindingToClick('2',button_2);
+		addKeyBindingToClick('3',button_3);
+		addKeyBindingToClick('4',button_4);
+		addKeyBindingToClick('5',button_5);
+		addKeyBindingToClick('6',button_6);
+		addKeyBindingToClick('7',button_7);
+		addKeyBindingToClick('8',button_8);
+		addKeyBindingToClick('9',button_9);
+		addKeyBindingToClick(KeyStroke.getKeyStroke("BACK_SPACE"),button_bck);
+		addKeyBindingToClick(KeyStroke.getKeyStroke("DELETE"), btnVerwijder);
+		
 	}
 	
+	private void addKeyBindingToClick(char stroke, JButton but) {
+		frame.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT ).put(KeyStroke.getKeyStroke(stroke), stroke);
+		frame.getRootPane().getActionMap().put(stroke, new Action() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				but.doClick();
+			}
+			
+			@Override
+			public void setEnabled(boolean b) {
+			}
+			
+			@Override
+			public void removePropertyChangeListener(PropertyChangeListener listener) {
+			}
+			
+			@Override
+			public void putValue(String key, Object value) {
+			}
+			
+			@Override
+			public boolean isEnabled() {
+				return true;
+			}
+			
+			@Override
+			public Object getValue(String key) {
+				return key;
+			}
+			
+			@Override
+			public void addPropertyChangeListener(PropertyChangeListener listener) {
+			}
+		}); 
+		
+	}
+	
+	private void addKeyBindingToClick(KeyStroke stroke, JButton but) {
+		frame.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT ).put(stroke, stroke);
+		frame.getRootPane().getActionMap().put(stroke, new Action() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				but.doClick();
+			}
+			
+			@Override
+			public void setEnabled(boolean b) {
+			}
+			
+			@Override
+			public void removePropertyChangeListener(PropertyChangeListener listener) {
+			}
+			
+			@Override
+			public void putValue(String key, Object value) {
+			}
+			
+			@Override
+			public boolean isEnabled() {
+				return true;
+			}
+			
+			@Override
+			public Object getValue(String key) {
+				return key;
+			}
+			
+			@Override
+			public void addPropertyChangeListener(PropertyChangeListener listener) {
+			}
+		}); 
+		
+	}
+
 	public void setNumber(int number) {
 		numberLabel.setText(Integer.toString(number)); 
 	}
@@ -694,22 +776,38 @@ public class CashierGui {
 		hourLabel.setText(hour);
 	}
 	
+	public void writeTicketList(List<String> data){
+		writeList(ticketList, data);
+	}
+	
+	public void writeSummaryList(List<String> data){
+		writeList(summaryList, data);
+	}
+	
+	public void writeBbqList(List<String> data){
+		writeList(bbqList, data);
+	}
+	
 	private void writeList(JList<String> listToWrite, List<String> data) {
 		listToWrite.setModel(new AbstractListModel<String>() {
-			
+			private static final long serialVersionUID = 1L;
+
+			String[] array = (String[]) data.toArray(new String[data.size()]);
 			
 			@Override
 			public String getElementAt(int arg0) {
-				// TODO Auto-generated method stub
-				return null;
+				return array[arg0];
 			}
 
 			@Override
 			public int getSize() {
-				// TODO Auto-generated method stub
-				return 0;
+				return array.length;
 			}
 		});
+	}
+	
+	public int getSelectedTicketIndex(){
+		return ticketList.getSelectedIndex();
 	}
 	
 	private class DisabledItemSelectionModel extends DefaultListSelectionModel {

@@ -22,4 +22,8 @@ public class TicketEntry {
 		return item;
 	}
 	
+	public int getAmount(){
+		return amount;
+	}
+	
 }

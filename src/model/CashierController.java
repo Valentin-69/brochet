@@ -1,98 +1,195 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+
+import gui.CashierGui;
 import model.items.Item;
-import model.items.saucedItems.Sauce;
-import model.items.saucedItems.SaucedItem;
-import model.items.summaryItems.Bonnetje;
-import model.items.summaryItems.Kalf;
-import model.items.summaryItems.KipKip;
-import model.items.summaryItems.KipRund;
-import model.items.summaryItems.Kuiken;
-import model.items.summaryItems.RundRund;
-import model.items.summaryItems.Soup;
-import model.items.summaryItems.VeggySimple;
-import model.items.summaryItems.VeggyVeggy;
-import model.items.summaryItems.Zalm;
+import model.items.OrderEntry;
+import model.items.Sauce;
+import model.items.SaucedItem;
+import model.items.SummaryItem;
+import model.items.TicketEntry;
 
 public class CashierController {
 	
-	public static final Item KIP_KIP_NATUUR = new SaucedItem(new KipKip(), Sauce.NATUUR);
-	public static final Item KIP_KIP_PROVENCAAL = new SaucedItem(new KipKip(), Sauce.PROVENCAAL);
-	public static final Item KIP_KIP_STROGANOFF = new SaucedItem(new KipKip(), Sauce.STROGANOFF);
-	public static final Item KIP_KIP_BEARNAISE = new SaucedItem(new KipKip(), Sauce.BEARNAISE);
-	public static final Item KIP_KIP_APPELMOES = new SaucedItem(new KipKip(), Sauce.APPELMOES);
+	private static final SummaryItem KIP_KIP = new SummaryItem(Arrays.asList(OrderEntry.KIP,OrderEntry.KIP), 15, "Kip (2)");
+	public static final Item KIP_KIP_NATUUR = new SaucedItem(KIP_KIP, Sauce.NATUUR);
+	public static final Item KIP_KIP_PROVENCAAL = new SaucedItem(KIP_KIP, Sauce.PROVENCAAL);
+	public static final Item KIP_KIP_STROGANOFF = new SaucedItem(KIP_KIP, Sauce.STROGANOFF);
+	public static final Item KIP_KIP_BEARNAISE = new SaucedItem(KIP_KIP, Sauce.BEARNAISE);
+	public static final Item KIP_KIP_APPELMOES = new SaucedItem(KIP_KIP, Sauce.APPELMOES);
 	
-	public static final Item KIP_RUND_NATUUR = new SaucedItem(new KipRund(), Sauce.NATUUR);
-	public static final Item KIP_RUND_PROVENCAAL = new SaucedItem(new KipRund(), Sauce.PROVENCAAL);
-	public static final Item KIP_RUND_STROGANOFF = new SaucedItem(new KipRund(), Sauce.STROGANOFF);
-	public static final Item KIP_RUND_BEARNAISE = new SaucedItem(new KipRund(), Sauce.BEARNAISE);
-	public static final Item KIP_RUND_APPELMOES = new SaucedItem(new KipRund(), Sauce.APPELMOES);
+	private static final SummaryItem KIP_RUND = new SummaryItem(Arrays.asList(OrderEntry.KIP,OrderEntry.RUND), 15, "Kip Rund");
+	public static final Item KIP_RUND_NATUUR = new SaucedItem(KIP_RUND, Sauce.NATUUR);
+	public static final Item KIP_RUND_PROVENCAAL = new SaucedItem(KIP_RUND, Sauce.PROVENCAAL);
+	public static final Item KIP_RUND_STROGANOFF = new SaucedItem(KIP_RUND, Sauce.STROGANOFF);
+	public static final Item KIP_RUND_BEARNAISE = new SaucedItem(KIP_RUND, Sauce.BEARNAISE);
+	public static final Item KIP_RUND_APPELMOES = new SaucedItem(KIP_RUND, Sauce.APPELMOES);
 	
-	public static final Item RUND_RUND_NATUUR = new SaucedItem(new RundRund(), Sauce.NATUUR);
-	public static final Item RUND_RUND_PROVENCAAL = new SaucedItem(new RundRund(), Sauce.PROVENCAAL);
-	public static final Item RUND_RUND_STROGANOFF = new SaucedItem(new RundRund(), Sauce.STROGANOFF);
-	public static final Item RUND_RUND_BEARNAISE = new SaucedItem(new RundRund(), Sauce.BEARNAISE);
-	public static final Item RUND_RUND_APPELMOES = new SaucedItem(new RundRund(), Sauce.APPELMOES);
+	private static final SummaryItem RUND_RUND = new SummaryItem(Arrays.asList(OrderEntry.RUND,OrderEntry.RUND), 15,"Rund (2)");
+	public static final Item RUND_RUND_NATUUR = new SaucedItem(RUND_RUND, Sauce.NATUUR);
+	public static final Item RUND_RUND_PROVENCAAL = new SaucedItem(RUND_RUND, Sauce.PROVENCAAL);
+	public static final Item RUND_RUND_STROGANOFF = new SaucedItem(RUND_RUND, Sauce.STROGANOFF);
+	public static final Item RUND_RUND_BEARNAISE = new SaucedItem(RUND_RUND, Sauce.BEARNAISE);
+	public static final Item RUND_RUND_APPELMOES = new SaucedItem(RUND_RUND, Sauce.APPELMOES);
 	
-	public static final Item ZALM_NATUUR = new SaucedItem(new Zalm(), Sauce.NATUUR);
-	public static final Item ZALM_PROVENCAAL = new SaucedItem(new Zalm(), Sauce.PROVENCAAL);
-	public static final Item ZALM_STROGANOFF = new SaucedItem(new Zalm(), Sauce.STROGANOFF);
-	public static final Item ZALM_BEARNAISE = new SaucedItem(new Zalm(), Sauce.BEARNAISE);
-	public static final Item ZALM_APPELMOES = new SaucedItem(new Zalm(), Sauce.APPELMOES);
+	private static final SummaryItem ZALM = new SummaryItem(new ArrayList<OrderEntry>(Arrays.asList(OrderEntry.ZALM)), 15,"Zalm");
+	public static final Item ZALM_NATUUR = new SaucedItem(ZALM, Sauce.NATUUR);
+	public static final Item ZALM_PROVENCAAL = new SaucedItem(ZALM, Sauce.PROVENCAAL);
+	public static final Item ZALM_STROGANOFF = new SaucedItem(ZALM, Sauce.STROGANOFF);
+	public static final Item ZALM_BEARNAISE = new SaucedItem(ZALM, Sauce.BEARNAISE);
+	public static final Item ZALM_APPELMOES = new SaucedItem(ZALM, Sauce.APPELMOES);
 	
-	public static final Item KUIKEN_NATUUR = new SaucedItem(new Kuiken(), Sauce.NATUUR);
-	public static final Item KUIKEN_PROVENCAAL = new SaucedItem(new Kuiken(), Sauce.PROVENCAAL);
-	public static final Item KUIKEN_STROGANOFF = new SaucedItem(new Kuiken(), Sauce.STROGANOFF);
-	public static final Item KUIKEN_BEARNAISE = new SaucedItem(new Kuiken(), Sauce.BEARNAISE);
-	public static final Item KUIKEN_APPELMOES = new SaucedItem(new Kuiken(), Sauce.APPELMOES);
+	private static final SummaryItem KUIKEN = new SummaryItem(Arrays.asList(OrderEntry.KIP), 10,"Kip (1)");
+	public static final Item KUIKEN_NATUUR = new SaucedItem(KUIKEN, Sauce.NATUUR);
+	public static final Item KUIKEN_PROVENCAAL = new SaucedItem(KUIKEN, Sauce.PROVENCAAL);
+	public static final Item KUIKEN_STROGANOFF = new SaucedItem(KUIKEN, Sauce.STROGANOFF);
+	public static final Item KUIKEN_BEARNAISE = new SaucedItem(KUIKEN, Sauce.BEARNAISE);
+	public static final Item KUIKEN_APPELMOES = new SaucedItem(KUIKEN, Sauce.APPELMOES);
 	
-	public static final Item KALF_NATUUR = new SaucedItem(new Kalf(), Sauce.NATUUR);
-	public static final Item KALF_PROVENCAAL = new SaucedItem(new Kalf(), Sauce.PROVENCAAL);
-	public static final Item KALF_STROGANOFF = new SaucedItem(new Kalf(), Sauce.STROGANOFF);
-	public static final Item KALF_BEARNAISE = new SaucedItem(new Kalf(), Sauce.BEARNAISE);
-	public static final Item KALF_APPELMOES = new SaucedItem(new Kalf(), Sauce.APPELMOES);
+	private static final SummaryItem KALF = new SummaryItem(Arrays.asList(OrderEntry.RUND), 10,"Rund (1)");
+	public static final Item KALF_NATUUR = new SaucedItem(KALF, Sauce.NATUUR);
+	public static final Item KALF_PROVENCAAL = new SaucedItem(KALF, Sauce.PROVENCAAL);
+	public static final Item KALF_STROGANOFF = new SaucedItem(KALF, Sauce.STROGANOFF);
+	public static final Item KALF_BEARNAISE = new SaucedItem(KALF, Sauce.BEARNAISE);
+	public static final Item KALF_APPELMOES = new SaucedItem(KALF, Sauce.APPELMOES);
 
-	public static final Item VEGGY_VEGGY_NATUUR = new SaucedItem(new VeggyVeggy(), Sauce.NATUUR);
-	public static final Item VEGGY_VEGGY_PROVENCAAL = new SaucedItem(new VeggyVeggy(), Sauce.PROVENCAAL);
-	public static final Item VEGGY_VEGGY_STROGANOFF = new SaucedItem(new VeggyVeggy(), Sauce.STROGANOFF);
-	public static final Item VEGGY_VEGGY_BEARNAISE = new SaucedItem(new VeggyVeggy(), Sauce.BEARNAISE);
-	public static final Item VEGGY_VEGGY_APPELMOES = new SaucedItem(new VeggyVeggy(), Sauce.APPELMOES);
+	private static final SummaryItem VEGGY_VEGGY = new SummaryItem(Arrays.asList(OrderEntry.VEGGY,OrderEntry.VEGGY), 15,"Veggy (2)");
+	public static final Item VEGGY_VEGGY_NATUUR = new SaucedItem(VEGGY_VEGGY, Sauce.NATUUR);
+	public static final Item VEGGY_VEGGY_PROVENCAAL = new SaucedItem(VEGGY_VEGGY, Sauce.PROVENCAAL);
+	public static final Item VEGGY_VEGGY_STROGANOFF = new SaucedItem(VEGGY_VEGGY, Sauce.STROGANOFF);
+	public static final Item VEGGY_VEGGY_BEARNAISE = new SaucedItem(VEGGY_VEGGY, Sauce.BEARNAISE);
+	public static final Item VEGGY_VEGGY_APPELMOES = new SaucedItem(VEGGY_VEGGY, Sauce.APPELMOES);
 
-	public static final Item VEGGY_NATUUR = new SaucedItem(new VeggySimple(), Sauce.NATUUR);
-	public static final Item VEGGY_PROVENCAAL = new SaucedItem(new VeggySimple(), Sauce.PROVENCAAL);
-	public static final Item VEGGY_STROGANOFF = new SaucedItem(new VeggySimple(), Sauce.STROGANOFF);
-	public static final Item VEGGY_BEARNAISE = new SaucedItem(new VeggySimple(), Sauce.BEARNAISE);
-	public static final Item VEGGY_APPELMOES = new SaucedItem(new VeggySimple(), Sauce.APPELMOES);
+	private static final SummaryItem VEGGY = new SummaryItem(Arrays.asList(OrderEntry.VEGGY), 10,"Veggy (1)");
+	public static final Item VEGGY_NATUUR = new SaucedItem(VEGGY, Sauce.NATUUR);
+	public static final Item VEGGY_PROVENCAAL = new SaucedItem(VEGGY, Sauce.PROVENCAAL);
+	public static final Item VEGGY_STROGANOFF = new SaucedItem(VEGGY, Sauce.STROGANOFF);
+	public static final Item VEGGY_BEARNAISE = new SaucedItem(VEGGY, Sauce.BEARNAISE);
+	public static final Item VEGGY_APPELMOES = new SaucedItem(VEGGY, Sauce.APPELMOES);
 
-	public static final Item SOEP = new Soup();
-	public static final Item BON = new Bonnetje();
+	public static final Item SOEP = new SummaryItem(Arrays.asList(OrderEntry.SOUP), 4,"Soep");
+	public static final Item BON = new SummaryItem(Arrays.asList(OrderEntry.TICKET), 1.8,"Bon");
 	
+	private final CashierGui gui;
+
 	private int selectedNumber = 1;
-		
-	public CashierController() {
-		// TODO Auto-generated constructor stub
+	private boolean notYetSelectedNumber = true;
+	
+	private final List<TicketEntry> ticketList = new ArrayList<>();
+	
+	
+	public CashierController(CashierGui gui) {
+		this.gui=gui;
+		startHourThread();
 	}
 	
+	private void startHourThread() {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(true){
+					gui.setHour(Clock.getHourStringFromDate(Calendar.getInstance().getTime()));
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {}
+				}
+			}
+		}).start();
+	}
+
 	public void selectNumber(int number) {
-		selectedNumber=number;
+		if(selectedNumber==0 || notYetSelectedNumber){
+			selectedNumber=number;
+			notYetSelectedNumber=false;
+		}else{
+			selectedNumber=Math.min(1000, selectedNumber*10 + number);
+		}
+		updateGuiNumber();
 	}
 	
 	public void backspace() {
-		
+		selectedNumber=selectedNumber/10;
+		updateGuiNumber();
 	}
 
 	public void addToTicket(Item item) {
-		// TODO Auto-generated method stub
+		if(selectedNumber==0){
+			return;
+		}
+		ticketList.add(new TicketEntry(item, selectedNumber));
+		updateGuiLists();
+		resetSelectedNumber();
+	}
+
+	private void resetSelectedNumber() {
+		selectedNumber=1;
+		notYetSelectedNumber=true;
+		updateGuiNumber();
+	}
+
+	private void updateGuiNumber() {
+		gui.setNumber(selectedNumber);
+	}
+
+	private void updateGuiLists(){
+		//update the gui ticket list
+		updateGuiTickets();
 		
+		//update the gui summary list
+		HashMap<SummaryItem, Integer> summaryClassToAmount = new HashMap<>();
+		for (TicketEntry ticketEntry : ticketList) {
+			summaryClassToAmount.put(ticketEntry.getItem().getSummaryItem(), 
+					summaryClassToAmount.getOrDefault(ticketEntry.getItem().getSummaryItem(), 0)+ticketEntry.getAmount());
+		}
+		updateGuiSummary(summaryClassToAmount);
+		
+		//update the gui bbq list
+		HashMap<OrderEntry, Integer> orderEntryToAmount = new HashMap<>();
+		for (TicketEntry ticketEntry : ticketList) {
+			for (OrderEntry orderEntry : ticketEntry.getItem().getSummaryItem().getOrderEntries()) {
+				orderEntryToAmount.put(orderEntry, orderEntryToAmount.getOrDefault(orderEntry, 0)+ticketEntry.getAmount());
+			}
+		}
+		updateGuiBbqList(orderEntryToAmount);
+	}
+
+	private void updateGuiTickets() {
+		gui.writeTicketList(ticketList.stream().map(x -> x.getTicketEntry()).collect(Collectors.toList()));
+	}
+
+	private void updateGuiSummary(HashMap<SummaryItem, Integer> summaryClassToAmount) {
+		ArrayList<String> summary = new ArrayList<>(); 
+		for (Entry<SummaryItem, Integer> summaryEntry : summaryClassToAmount.entrySet()) {
+			summary.add(summaryEntry.getKey().getSummaryEntryRepresentation(summaryEntry.getValue()));
+		}
+		gui.writeSummaryList(summary);
+
+	}
+	
+	private void updateGuiBbqList(HashMap<OrderEntry, Integer> orderEntryToAmount) {
+		ArrayList<String> bbqList = new ArrayList<>(); 
+		for (Entry<OrderEntry, Integer> entryToAmount : orderEntryToAmount.entrySet()) {
+			bbqList.add(entryToAmount.getKey().getRepresentation(entryToAmount.getValue()));
+		}
+		gui.writeBbqList(bbqList);
 	}
 
 	public void deleteSelectedItem() {
-		// TODO Auto-generated method stub
-		
+		ticketList.remove(gui.getSelectedTicketIndex());
+		updateGuiLists();
 	}
 
 	public void deleteAllItems() {
-		// TODO Auto-generated method stub
-		
+		ticketList.clear();
+		updateGuiLists();
 	}
 }
