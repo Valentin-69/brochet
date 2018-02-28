@@ -113,12 +113,12 @@ public class CashierController {
 		}else{
 			selectedNumber=Math.min(1000, selectedNumber*10 + number);
 		}
-		updateGuiNumber();
+		updateGui();
 	}
 	
 	public void backspace() {
 		selectedNumber=selectedNumber/10;
-		updateGuiNumber();
+		updateGui();
 	}
 
 	public void addToTicket(Item item) {
@@ -126,14 +126,24 @@ public class CashierController {
 			return;
 		}
 		ticketList.add(new TicketEntry(item, selectedNumber));
-		updateGuiLists();
+		updateGui();
 		resetSelectedNumber();
 	}
 
 	private void resetSelectedNumber() {
 		selectedNumber=1;
 		notYetSelectedNumber=true;
+		updateGui();
+	}
+
+	private void updateGui(){
+		updateGuiLists();
+		updateTotalPrice();
 		updateGuiNumber();
+	}
+	
+	private void updateTotalPrice() {
+		gui.setTotal("€ "+getTotalPrice());
 	}
 
 	private void updateGuiNumber() {
@@ -162,8 +172,10 @@ public class CashierController {
 		updateGuiBbqList(orderEntryToAmount);
 	}
 
+
 	private void updateGuiTickets() {
-		gui.writeTicketList(ticketList.stream().map(x -> x.getTicketEntry()).collect(Collectors.toList()));
+		gui.writeTicketList(ticketList.stream().map(x -> x.getTicketEntry()).collect(Collectors.toList()),
+							ticketList.stream().map(x -> "€ "+x.getTotalPrice()).collect(Collectors.toList()));
 	}
 
 	private void updateGuiSummary(HashMap<SummaryItem, Integer> summaryClassToAmount) {
@@ -185,11 +197,19 @@ public class CashierController {
 
 	public void deleteSelectedItem() {
 		ticketList.remove(gui.getSelectedTicketIndex());
-		updateGuiLists();
+		updateGui();
 	}
 
 	public void deleteAllItems() {
 		ticketList.clear();
-		updateGuiLists();
+		updateGui();
+	}
+
+	public double getTotalPrice() {
+		return ticketList.stream().map(x -> x.getTotalPrice()).reduce(0.0, (a,b) -> a+b);
+	}
+
+	public void savePayment() {
+		//TODO: implement
 	}
 }

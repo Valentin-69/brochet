@@ -19,20 +19,12 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
-import javax.swing.UIManager;
 
 public class CashierGui {
 
@@ -40,11 +32,15 @@ public class CashierGui {
 	private JLabel numberLabel = new JLabel("1");
 	private JLabel hourLabel = new JLabel("22:11");
 	private JList<String> ticketList = new JList<>();
+	private JList<String> ticketPriceList = new JList<>();
+	private JLabel totalPrice = new JLabel("\u20AC 0.0");
 	private JList<String> summaryList = new JList<>();
 	private JList<String> bbqList = new JList<>();
 
 	
 	private CashierController controller;
+	
+	private PaymentFrame paymentWindow;
 	
 	/**
 	 * Launch the application.
@@ -66,6 +62,7 @@ public class CashierGui {
 	 */
 	public CashierGui() {
 		controller = new CashierController(this);
+		paymentWindow = new PaymentFrame(controller);
 		initialize();
 		frame.setVisible(true);
 	}
@@ -80,125 +77,124 @@ public class CashierGui {
 		frame.getContentPane().setLayout(null);
 		
 		ticketList.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		ticketList.setBounds(1307, 211, 257, 642);
+		ticketList.setBounds(1307, 169, 206, 653);
 		frame.getContentPane().add(ticketList);
+		ticketPriceList.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		ticketPriceList.setBounds(1511, 169, 53, 653);
+		ticketPriceList.setSelectionModel(new DisabledItemSelectionModel());
+		frame.getContentPane().add(ticketPriceList);
+		
+		
 		summaryList.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		summaryList.setBounds(1582, 207, 292, 127);
+		summaryList.setBounds(1582, 165, 292, 127);
 		summaryList.setSelectionModel(new DisabledItemSelectionModel());
 		frame.getContentPane().add(summaryList);
 
 		bbqList.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		bbqList.setBounds(1582, 381, 292, 81);
+		bbqList.setBounds(1582, 339, 292, 81);
 		bbqList.setSelectionModel(new DisabledItemSelectionModel());
 		frame.getContentPane().add(bbqList);
 		
 		JLabel lblKlaarTeMaken = new JLabel("Klaar te maken voor deze bestelling:");
 		lblKlaarTeMaken.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblKlaarTeMaken.setBounds(1582, 360, 292, 20);
+		lblKlaarTeMaken.setBounds(1582, 321, 292, 20);
 		frame.getContentPane().add(lblKlaarTeMaken);
 		
 		JLabel lblSamenvatting = new JLabel("Samenvatting: ");
 		lblSamenvatting.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblSamenvatting.setBounds(1582, 184, 292, 26);
+		lblSamenvatting.setBounds(1582, 142, 292, 26);
 		frame.getContentPane().add(lblSamenvatting);
 		
 		JLabel lblBestelling = new JLabel("bestelling:");
 		lblBestelling.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblBestelling.setBounds(1307, 184, 110, 20);
+		lblBestelling.setBounds(1307, 142, 110, 20);
 		frame.getContentPane().add(lblBestelling);
 		
 		JButton button = new JButton("0");
 		button.setFont(new Font("Tahoma", Font.PLAIN, 35));
 		button.addActionListener(new NumberSelector(0));
-		button.setBounds(1612, 823, 156, 73);
+		totalPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		totalPrice.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		totalPrice.setBackground(Color.WHITE);
+		totalPrice.setOpaque(true);
+		totalPrice.setBounds(1511, 822, 53, 29);
+		frame.getContentPane().add(totalPrice);
+		button.setBounds(1612, 781, 156, 73);
 		frame.getContentPane().add(button);
 		
 		JButton button_1 = new JButton("1");
 		button_1.setFont(new Font("Tahoma", Font.PLAIN, 35));
 		button_1.addActionListener(new NumberSelector(1));
-		button_1.setBounds(1612, 739, 73, 73);
+		button_1.setBounds(1612, 697, 73, 73);
 		frame.getContentPane().add(button_1);
 		
 		JButton button_2 = new JButton("2");
 		button_2.setFont(new Font("Tahoma", Font.PLAIN, 35));
 		button_2.addActionListener(new NumberSelector(2));
 
-		button_2.setBounds(1695, 739, 73, 73);
+		button_2.setBounds(1695, 697, 73, 73);
 		frame.getContentPane().add(button_2);
 		
 		JButton button_3 = new JButton("3");
 		button_3.setFont(new Font("Tahoma", Font.PLAIN, 35));
 		button_3.addActionListener(new NumberSelector(3));
-		button_3.setBounds(1778, 739, 73, 73);
+		button_3.setBounds(1778, 697, 73, 73);
 		frame.getContentPane().add(button_3);
 		
 		JButton button_4 = new JButton("4");
 		button_4.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_4.setBounds(1612, 655, 73, 73);
+		button_4.setBounds(1612, 613, 73, 73);
 		button_4.addActionListener(new NumberSelector(4));
 		frame.getContentPane().add(button_4);
 		
 		JButton button_5 = new JButton("5");
 		button_5.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_5.setBounds(1695, 655, 73, 73);
+		button_5.setBounds(1695, 613, 73, 73);
 		button_5.addActionListener(new NumberSelector(5));
 		frame.getContentPane().add(button_5);
 		
 		JButton button_6 = new JButton("6");
 		button_6.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_6.setBounds(1778, 655, 73, 73);
+		button_6.setBounds(1778, 613, 73, 73);
 		button_6.addActionListener(new NumberSelector(6));
 		frame.getContentPane().add(button_6);
 		
 		JButton button_9 = new JButton("9");
 		button_9.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_9.setBounds(1778, 571, 73, 73);
+		button_9.setBounds(1778, 529, 73, 73);
 		button_9.addActionListener(new NumberSelector(9));
 		frame.getContentPane().add(button_9);
 		
 		JButton button_8 = new JButton("8");
 		button_8.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_8.setBounds(1695, 571, 73, 73);
+		button_8.setBounds(1695, 529, 73, 73);
 		button_8.addActionListener(new NumberSelector(8));
 		frame.getContentPane().add(button_8);
 		
 		JButton button_7 = new JButton("7");
 		button_7.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_7.setBounds(1612, 571, 73, 73);
+		button_7.setBounds(1612, 529, 73, 73);
 		button_7.addActionListener(new NumberSelector(7));
 		frame.getContentPane().add(button_7);
 		
 		JButton button_bck = new JButton("<-");
 		button_bck.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_bck.setBounds(1778, 823, 73, 73);
-		button_bck.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.backspace();
-			}
-		});
+		button_bck.setBounds(1778, 781, 73, 73);
+		button_bck.addActionListener(e -> controller.backspace());
 		frame.getContentPane().add(button_bck);
 		
 		JButton btnVerwijder = new JButton("Verwijder");
 		btnVerwijder.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnVerwijder.setBounds(1307, 864, 126, 32);
-		btnVerwijder.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.deleteSelectedItem();
-			}
-		});
+		btnVerwijder.setBounds(1307, 862, 126, 32);
+		btnVerwijder.addActionListener(e ->controller.deleteSelectedItem());
 		frame.getContentPane().add(btnVerwijder);
 		
 		JButton btnClear = new JButton("Clear all");
 		btnClear.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnClear.setBounds(1438, 864, 126, 32);
-		btnClear.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.deleteAllItems();
-			}
-		});
+		btnClear.setBounds(1438, 862, 126, 32);
+		btnClear.addActionListener(e ->controller.deleteAllItems());
 		frame.getContentPane().add(btnClear);
 		
 		numberLabel.setForeground(Color.BLACK);
@@ -206,14 +202,14 @@ public class CashierGui {
 		numberLabel.setBackground(Color.WHITE);
 		numberLabel.setOpaque(true);
 		numberLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		numberLabel.setBounds(1612, 497, 239, 63);
+		numberLabel.setBounds(1612, 455, 239, 63);
 		frame.getContentPane().add(numberLabel);
 		
 		hourLabel.setBackground(Color.WHITE);
 		hourLabel.setOpaque(true);
 		hourLabel.setFont(new Font("Tahoma", Font.PLAIN, 70));
 		hourLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		hourLabel.setBounds(1307, 21, 567, 141);
+		hourLabel.setBounds(1307, 11, 567, 120);
 		frame.getContentPane().add(hourLabel);
 		
 		JButton rundappel = new JButton("Rund (2)   Appelmoes");
@@ -690,6 +686,19 @@ public class CashierGui {
 		addKeyBindingToClick(KeyStroke.getKeyStroke("BACK_SPACE"),button_bck);
 		addKeyBindingToClick(KeyStroke.getKeyStroke("DELETE"), btnVerwijder);
 		
+		JLabel lblNewLabel = new JLabel("Totaal:");
+		lblNewLabel.setOpaque(true);
+		lblNewLabel.setBackground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setBounds(1307, 822, 206, 29);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JButton btnBetalen = new JButton("Betalen");
+		btnBetalen.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnBetalen.setBounds(1612, 868, 239, 49);
+		btnBetalen.addActionListener(e -> doPayment());
+		frame.getContentPane().add(btnBetalen);
+		
 	}
 	
 	private void addKeyBindingToClick(char stroke, JButton but) {
@@ -776,8 +785,13 @@ public class CashierGui {
 		hourLabel.setText(hour);
 	}
 	
-	public void writeTicketList(List<String> data){
-		writeList(ticketList, data);
+	public void setTotal(String total){
+		totalPrice.setText(total);
+	}
+	
+	public void writeTicketList(List<String> data, List<String> prices){
+		writeList(ticketList, data); 
+		writeList(ticketPriceList, prices);
 	}
 	
 	public void writeSummaryList(List<String> data){
@@ -808,6 +822,10 @@ public class CashierGui {
 	
 	public int getSelectedTicketIndex(){
 		return ticketList.getSelectedIndex();
+	}
+	
+	private void doPayment(){
+		paymentWindow.initiatePayment(controller.getTotalPrice());
 	}
 	
 	private class DisabledItemSelectionModel extends DefaultListSelectionModel {
