@@ -189,4 +189,30 @@ public class Clock {
 		}
 		return false;
 	}
+	
+	public static String toLogFormat(Date date) {
+		Calendar temp = Calendar.getInstance();
+		temp.setTime(date);
+		return temp.get(Calendar.DAY_OF_MONTH)+"_"+temp.get(Calendar.MONTH)+"-"+temp.get(Calendar.HOUR_OF_DAY)%100/10+""+temp.get(Calendar.HOUR_OF_DAY)%10+"u"+
+		temp.get(Calendar.MINUTE)%100/10+""+temp.get(Calendar.MINUTE)%10+"m"+temp.get(Calendar.SECOND)%100/10+""+temp.get(Calendar.SECOND)%10+"s";
+	}
+
+	public static int getSheet(Date time) {
+		Calendar temp = Calendar.getInstance();
+		temp.setTime(time);
+		if(temp.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY) {
+			if(temp.get(Calendar.HOUR_OF_DAY)<17) {
+				return 0;
+			}else {
+				return 1;
+			}
+		}else{
+			if(temp.get(Calendar.HOUR_OF_DAY)<17) {
+				return 2;
+			}else {
+				return 3;
+			}
+		}
+	}
+
 }

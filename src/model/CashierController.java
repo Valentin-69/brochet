@@ -1,13 +1,24 @@
 package model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
+
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gui.CashierGui;
 import model.items.Item;
@@ -143,7 +154,7 @@ public class CashierController {
 	}
 	
 	private void updateTotalPrice() {
-		gui.setTotal("€ "+getTotalPrice());
+		gui.setTotal(getTotalPrice());
 	}
 
 	private void updateGuiNumber() {
@@ -210,6 +221,102 @@ public class CashierController {
 	}
 
 	public void savePayment() {
-		//TODO: implement
+		try {
+			saveAsJson();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		try {
+			saveInExcel();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void saveAsJson() throws JsonGenerationException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		FileOutputStream stream = new FileOutputStream(new File("logs/"+Clock.toLogFormat(Calendar.getInstance().getTime())+".json"));
+		mapper.writeValue(stream, getLogFrom(ticketList));
+		stream.close();
+	}
+
+	private Log getLogFrom(List<TicketEntry> ticketList) {
+		return new Log(ticketList);
+	}
+
+	private void saveInExcel() throws IOException {
+		int adultBrochet = 0;
+		int childBrochet = 0;
+		int salmon = 0;
+		int adultVeggy = 0;
+		int childVeggy = 0;
+		int tickets = 0;
+		for (TicketEntry ticketEntry : ticketList) {
+			if(ticketEntry.getItem().getSummaryItem().equals(RUND_RUND)||ticketEntry.getItem().getSummaryItem().equals(KIP_KIP)||ticketEntry.getItem().getSummaryItem().equals(KIP_RUND) ) {
+				adultBrochet+=ticketEntry.getAmount();
+			}
+			if(ticketEntry.getItem().getSummaryItem().equals(KALF)||ticketEntry.getItem().getSummaryItem().equals(KUIKEN)) {
+				childBrochet+=ticketEntry.getAmount();
+			}
+			if(ticketEntry.getItem().getSummaryItem().equals(ZALM)) {
+				salmon+=ticketEntry.getAmount();
+			}
+			if(ticketEntry.getItem().getSummaryItem().equals(VEGGY_VEGGY)) {
+				adultVeggy+=ticketEntry.getAmount();
+			}
+			if(ticketEntry.getItem().getSummaryItem().equals(VEGGY)) {
+				childVeggy+=ticketEntry.getAmount();
+			}
+			if(ticketEntry.getItem().getSummaryItem().equals(BON)) {
+				tickets+=ticketEntry.getAmount();
+			}
+		}
+
+		FileInputStream in = new FileInputStream(new File("logs/AFBLIJVEN.xlsx"));
+		XSSFWorkbook book = new XSSFWorkbook(in);
+		in.close();
+		XSSFSheet sheet = book.getSheetAt(Clock.getSheet(Calendar.getInstance().getTime()));
+		XSSFRow row = sheet.createRow(sheet.getLastRowNum()+1);
+		int i=0;
+		row.createCell(i++).setCellValue("Brochet Volwassen: ");
+		row.createCell(i++).setCellValue(adultBrochet);
+		row.createCell(i++).setCellValue("    ");
+		row.createCell(i++).setCellValue("Brochet Kind: ");
+		row.createCell(i++).setCellValue(childBrochet);
+		row.createCell(i++).setCellValue("    ");
+		row.createCell(i++).setCellValue("Zalm: ");
+		row.createCell(i++).setCellValue(salmon);
+		row.createCell(i++).setCellValue("    ");
+		row.createCell(i++).setCellValue("Veggy Volwassen: ");
+		row.createCell(i++).setCellValue(adultVeggy);
+		row.createCell(i++).setCellValue("    ");
+		row.createCell(i++).setCellValue("Veggy Kind: ");
+		row.createCell(i++).setCellValue(childVeggy);
+		row.createCell(i++).setCellValue("    ");
+		row.createCell(i++).setCellValue("Bonnekes: ");
+		row.createCell(i++).setCellValue(tickets);
+		row.createCell(i++).setCellValue("    ");
+		row.createCell(i++).setCellValue("Prijs: ");
+		row.createCell(i++).setCellValue(adultBrochet*15+childBrochet*10+salmon*15+adultVeggy*15+childVeggy*10+tickets*1.8);
+		row.createCell(i++).setCellValue("    ");
+		for(int j =0;j<i;j++) {
+			sheet.autoSizeColumn(j);
+		}
+		try {
+			FileOutputStream out = new FileOutputStream(new File("logs/AFBLIJVEN.xlsx"));
+			book.write(out);
+			out.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			FileOutputStream out = new FileOutputStream(new File("samenvatting.xlsx"));
+			book.write(out);
+			out.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		book.close();
 	}
 }

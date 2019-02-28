@@ -20,6 +20,7 @@ import javax.swing.JComponent;
 
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -27,6 +28,8 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 
 public class CashierGui {
+	
+	private static DecimalFormat df2 = new DecimalFormat(".##");
 
 	private JFrame frame;
 	private JLabel numberLabel = new JLabel("1");
@@ -71,44 +74,45 @@ public class CashierGui {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(0, 0, 1900, 1020);
+		frame = new JFrame("Danku Cara voor deze leuke kassa");
+//		frame.setBounds(0, 0, 1920, 1080);
+		frame.setBounds(0, 0, 1550, 850);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		ticketList.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		ticketList.setBounds(1307, 169, 206, 653);
+		ticketList.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		ticketList.setBounds(941, 157, 182, 517);
 		frame.getContentPane().add(ticketList);
-		ticketPriceList.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		ticketPriceList.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		ticketPriceList.setBounds(1511, 169, 53, 653);
+		ticketPriceList.setBounds(1133, 157, 73, 517);
 		ticketPriceList.setSelectionModel(new DisabledItemSelectionModel());
 		frame.getContentPane().add(ticketPriceList);
 		
 		
-		summaryList.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		summaryList.setBounds(1582, 165, 292, 127);
+		summaryList.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		summaryList.setBounds(1232, 26, 239, 165);
 		summaryList.setSelectionModel(new DisabledItemSelectionModel());
 		frame.getContentPane().add(summaryList);
 
-		bbqList.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		bbqList.setBounds(1582, 339, 292, 81);
+		bbqList.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		bbqList.setBounds(1232, 212, 239, 91);
 		bbqList.setSelectionModel(new DisabledItemSelectionModel());
 		frame.getContentPane().add(bbqList);
 		
-		JLabel lblKlaarTeMaken = new JLabel("Klaar te maken voor deze bestelling:");
+		JLabel lblKlaarTeMaken = new JLabel("Voor BBQ:");
 		lblKlaarTeMaken.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblKlaarTeMaken.setBounds(1582, 321, 292, 20);
+		lblKlaarTeMaken.setBounds(1232, 194, 239, 20);
 		frame.getContentPane().add(lblKlaarTeMaken);
 		
 		JLabel lblSamenvatting = new JLabel("Samenvatting: ");
 		lblSamenvatting.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblSamenvatting.setBounds(1582, 142, 292, 26);
+		lblSamenvatting.setBounds(1232, 11, 239, 16);
 		frame.getContentPane().add(lblSamenvatting);
 		
-		JLabel lblBestelling = new JLabel("bestelling:");
+		JLabel lblBestelling = new JLabel("Bestelling:");
 		lblBestelling.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblBestelling.setBounds(1307, 142, 110, 20);
+		lblBestelling.setBounds(941, 138, 110, 20);
 		frame.getContentPane().add(lblBestelling);
 		
 		JButton button = new JButton("0");
@@ -119,81 +123,81 @@ public class CashierGui {
 		
 		totalPrice.setBackground(Color.WHITE);
 		totalPrice.setOpaque(true);
-		totalPrice.setBounds(1511, 822, 53, 29);
+		totalPrice.setBounds(1133, 672, 73, 29);
 		frame.getContentPane().add(totalPrice);
-		button.setBounds(1612, 781, 156, 73);
+		button.setBounds(1232, 636, 156, 73);
 		frame.getContentPane().add(button);
 		
 		JButton button_1 = new JButton("1");
 		button_1.setFont(new Font("Tahoma", Font.PLAIN, 35));
 		button_1.addActionListener(new NumberSelector(1));
-		button_1.setBounds(1612, 697, 73, 73);
+		button_1.setBounds(1232, 552, 73, 73);
 		frame.getContentPane().add(button_1);
 		
 		JButton button_2 = new JButton("2");
 		button_2.setFont(new Font("Tahoma", Font.PLAIN, 35));
 		button_2.addActionListener(new NumberSelector(2));
 
-		button_2.setBounds(1695, 697, 73, 73);
+		button_2.setBounds(1315, 552, 73, 73);
 		frame.getContentPane().add(button_2);
 		
 		JButton button_3 = new JButton("3");
 		button_3.setFont(new Font("Tahoma", Font.PLAIN, 35));
 		button_3.addActionListener(new NumberSelector(3));
-		button_3.setBounds(1778, 697, 73, 73);
+		button_3.setBounds(1398, 552, 73, 73);
 		frame.getContentPane().add(button_3);
 		
 		JButton button_4 = new JButton("4");
 		button_4.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_4.setBounds(1612, 613, 73, 73);
+		button_4.setBounds(1232, 468, 73, 73);
 		button_4.addActionListener(new NumberSelector(4));
 		frame.getContentPane().add(button_4);
 		
 		JButton button_5 = new JButton("5");
 		button_5.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_5.setBounds(1695, 613, 73, 73);
+		button_5.setBounds(1315, 468, 73, 73);
 		button_5.addActionListener(new NumberSelector(5));
 		frame.getContentPane().add(button_5);
 		
 		JButton button_6 = new JButton("6");
 		button_6.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_6.setBounds(1778, 613, 73, 73);
+		button_6.setBounds(1398, 468, 73, 73);
 		button_6.addActionListener(new NumberSelector(6));
 		frame.getContentPane().add(button_6);
 		
 		JButton button_9 = new JButton("9");
 		button_9.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_9.setBounds(1778, 529, 73, 73);
+		button_9.setBounds(1398, 384, 73, 73);
 		button_9.addActionListener(new NumberSelector(9));
 		frame.getContentPane().add(button_9);
 		
 		JButton button_8 = new JButton("8");
 		button_8.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_8.setBounds(1695, 529, 73, 73);
+		button_8.setBounds(1315, 384, 73, 73);
 		button_8.addActionListener(new NumberSelector(8));
 		frame.getContentPane().add(button_8);
 		
 		JButton button_7 = new JButton("7");
 		button_7.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_7.setBounds(1612, 529, 73, 73);
+		button_7.setBounds(1232, 384, 73, 73);
 		button_7.addActionListener(new NumberSelector(7));
 		frame.getContentPane().add(button_7);
 		
 		JButton button_bck = new JButton("<-");
 		button_bck.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		button_bck.setBounds(1778, 781, 73, 73);
+		button_bck.setBounds(1398, 636, 73, 73);
 		button_bck.addActionListener(e -> controller.backspace());
 		frame.getContentPane().add(button_bck);
 		
 		JButton btnVerwijder = new JButton("Verwijder");
 		btnVerwijder.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnVerwijder.setBounds(1307, 862, 126, 32);
+		btnVerwijder.setBounds(941, 714, 126, 32);
 		btnVerwijder.addActionListener(e ->controller.deleteSelectedItem());
 		frame.getContentPane().add(btnVerwijder);
 		
 		JButton btnClear = new JButton("Clear all");
 		btnClear.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnClear.setBounds(1438, 862, 126, 32);
+		btnClear.setBounds(1077, 712, 126, 32);
 		btnClear.addActionListener(e ->controller.deleteAllItems());
 		frame.getContentPane().add(btnClear);
 		
@@ -202,25 +206,25 @@ public class CashierGui {
 		numberLabel.setBackground(Color.WHITE);
 		numberLabel.setOpaque(true);
 		numberLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		numberLabel.setBounds(1612, 455, 239, 63);
+		numberLabel.setBounds(1232, 310, 239, 63);
 		frame.getContentPane().add(numberLabel);
 		
 		hourLabel.setBackground(Color.WHITE);
 		hourLabel.setOpaque(true);
 		hourLabel.setFont(new Font("Tahoma", Font.PLAIN, 70));
 		hourLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		hourLabel.setBounds(1307, 11, 567, 120);
+		hourLabel.setBounds(941, 11, 265, 120);
 		frame.getContentPane().add(hourLabel);
 		
 		JButton rundappel = new JButton("Rund (2)   Appelmoes");
-		rundappel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		rundappel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		rundappel.setForeground(Color.WHITE);
 		rundappel.setVerticalTextPosition(SwingConstants.CENTER);
 		rundappel.setHorizontalTextPosition(SwingConstants.CENTER);
 		rundappel.setText("<html>Rund (2)<br />Appelmoes</html>");
 		rundappel.setIcon(new ImageIcon(CashierGui.class.getResource("/resources/RundAppelmoes.png")));
 		rundappel.setBackground(new Color(102, 51, 51));
-		rundappel.setBounds(312, 625, 141, 141);
+		rundappel.setBounds(240, 475, 105, 105);
 		rundappel.addActionListener(new ItemAdder(CashierController.RUND_RUND_APPELMOES));
 		frame.getContentPane().add(rundappel);
 		
@@ -229,9 +233,9 @@ public class CashierGui {
 		btnrundbarnaise.setVerticalTextPosition(SwingConstants.CENTER);
 		btnrundbarnaise.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnrundbarnaise.setForeground(Color.WHITE);
-		btnrundbarnaise.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnrundbarnaise.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnrundbarnaise.setBackground(new Color(102, 51, 51));
-		btnrundbarnaise.setBounds(312, 473, 141, 141);
+		btnrundbarnaise.setBounds(240, 359, 105, 105);
 		btnrundbarnaise.addActionListener(new ItemAdder(CashierController.RUND_RUND_BEARNAISE));
 		frame.getContentPane().add(btnrundbarnaise);
 		
@@ -240,9 +244,9 @@ public class CashierGui {
 		btnrundstroganoff.setVerticalTextPosition(SwingConstants.CENTER);
 		btnrundstroganoff.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnrundstroganoff.setForeground(Color.WHITE);
-		btnrundstroganoff.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnrundstroganoff.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnrundstroganoff.setBackground(new Color(102, 51, 51));
-		btnrundstroganoff.setBounds(312, 321, 141, 141);
+		btnrundstroganoff.setBounds(240, 243, 105, 105);
 		btnrundstroganoff.addActionListener(new ItemAdder(CashierController.RUND_RUND_STROGANOFF));
 		frame.getContentPane().add(btnrundstroganoff);
 		
@@ -251,9 +255,9 @@ public class CashierGui {
 		btnrundprovencaal.setVerticalTextPosition(SwingConstants.CENTER);
 		btnrundprovencaal.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnrundprovencaal.setForeground(Color.WHITE);
-		btnrundprovencaal.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnrundprovencaal.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnrundprovencaal.setBackground(new Color(102, 51, 51));
-		btnrundprovencaal.setBounds(312, 164, 141, 141);
+		btnrundprovencaal.setBounds(240, 127, 105, 105);
 		btnrundprovencaal.addActionListener(new ItemAdder(CashierController.RUND_RUND_PROVENCAAL));
 		frame.getContentPane().add(btnrundprovencaal);
 		
@@ -262,9 +266,9 @@ public class CashierGui {
 		btnrundnatuur.setVerticalTextPosition(SwingConstants.CENTER);
 		btnrundnatuur.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnrundnatuur.setForeground(Color.WHITE);
-		btnrundnatuur.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnrundnatuur.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnrundnatuur.setBackground(new Color(102, 51, 51));
-		btnrundnatuur.setBounds(312, 11, 141, 141);
+		btnrundnatuur.setBounds(240, 11, 105, 105);
 		btnrundnatuur.addActionListener(new ItemAdder(CashierController.RUND_RUND_NATUUR));
 		frame.getContentPane().add(btnrundnatuur);
 		
@@ -273,9 +277,9 @@ public class CashierGui {
 		btnkipRundnatuur.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipRundnatuur.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipRundnatuur.setForeground(Color.WHITE);
-		btnkipRundnatuur.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipRundnatuur.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipRundnatuur.setBackground(new Color(102, 51, 51));
-		btnkipRundnatuur.setBounds(161, 11, 141, 141);
+		btnkipRundnatuur.setBounds(125, 11, 105, 105);
 		btnkipRundnatuur.addActionListener(new ItemAdder(CashierController.KIP_RUND_NATUUR));
 		frame.getContentPane().add(btnkipRundnatuur);
 		
@@ -284,9 +288,9 @@ public class CashierGui {
 		btnkipRundbarnaise.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipRundbarnaise.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipRundbarnaise.setForeground(Color.WHITE);
-		btnkipRundbarnaise.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipRundbarnaise.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipRundbarnaise.setBackground(new Color(102, 51, 51));
-		btnkipRundbarnaise.setBounds(161, 473, 141, 141);
+		btnkipRundbarnaise.setBounds(125, 359, 105, 105);
 		btnkipRundbarnaise.addActionListener(new ItemAdder(CashierController.KIP_RUND_BEARNAISE));
 		frame.getContentPane().add(btnkipRundbarnaise);
 		
@@ -295,9 +299,9 @@ public class CashierGui {
 		btnkipRundProvencaalprovencaal.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipRundProvencaalprovencaal.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipRundProvencaalprovencaal.setForeground(Color.WHITE);
-		btnkipRundProvencaalprovencaal.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipRundProvencaalprovencaal.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipRundProvencaalprovencaal.setBackground(new Color(102, 51, 51));
-		btnkipRundProvencaalprovencaal.setBounds(161, 164, 141, 141);
+		btnkipRundProvencaalprovencaal.setBounds(125, 127, 105, 105);
 		btnkipRundProvencaalprovencaal.addActionListener(new ItemAdder(CashierController.KIP_RUND_PROVENCAAL));
 		frame.getContentPane().add(btnkipRundProvencaalprovencaal);
 		
@@ -306,9 +310,9 @@ public class CashierGui {
 		btnkipRundstroganoff.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipRundstroganoff.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipRundstroganoff.setForeground(Color.WHITE);
-		btnkipRundstroganoff.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipRundstroganoff.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipRundstroganoff.setBackground(new Color(102, 51, 51));
-		btnkipRundstroganoff.setBounds(161, 321, 141, 141);
+		btnkipRundstroganoff.setBounds(125, 243, 105, 105);
 		btnkipRundstroganoff.addActionListener(new ItemAdder(CashierController.KIP_RUND_STROGANOFF));
 		frame.getContentPane().add(btnkipRundstroganoff);
 		
@@ -317,9 +321,9 @@ public class CashierGui {
 		btnkipRundappelmoes.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipRundappelmoes.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipRundappelmoes.setForeground(Color.WHITE);
-		btnkipRundappelmoes.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipRundappelmoes.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipRundappelmoes.setBackground(new Color(102, 51, 51));
-		btnkipRundappelmoes.setBounds(161, 625, 141, 141);
+		btnkipRundappelmoes.setBounds(125, 475, 105, 105);
 		btnkipRundappelmoes.addActionListener(new ItemAdder(CashierController.KIP_RUND_APPELMOES));
 		frame.getContentPane().add(btnkipRundappelmoes);
 		
@@ -328,9 +332,9 @@ public class CashierGui {
 		btnkipnatuur.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipnatuur.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipnatuur.setForeground(Color.WHITE);
-		btnkipnatuur.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipnatuur.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipnatuur.setBackground(new Color(102, 51, 51));
-		btnkipnatuur.setBounds(10, 11, 141, 141);
+		btnkipnatuur.setBounds(10, 11, 105, 105);
 		btnkipnatuur.addActionListener(new ItemAdder(CashierController.KIP_KIP_NATUUR));
 		frame.getContentPane().add(btnkipnatuur);
 		
@@ -339,9 +343,9 @@ public class CashierGui {
 		btnkipbarnaise.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipbarnaise.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipbarnaise.setForeground(Color.WHITE);
-		btnkipbarnaise.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipbarnaise.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipbarnaise.setBackground(new Color(102, 51, 51));
-		btnkipbarnaise.setBounds(10, 473, 141, 141);
+		btnkipbarnaise.setBounds(10, 359, 105, 105);
 		btnkipbarnaise.addActionListener(new ItemAdder(CashierController.KIP_KIP_BEARNAISE));
 		frame.getContentPane().add(btnkipbarnaise);
 		
@@ -350,9 +354,9 @@ public class CashierGui {
 		btnkipprovencaal.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipprovencaal.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipprovencaal.setForeground(Color.WHITE);
-		btnkipprovencaal.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipprovencaal.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipprovencaal.setBackground(new Color(102, 51, 51));
-		btnkipprovencaal.setBounds(10, 164, 141, 141);
+		btnkipprovencaal.setBounds(10, 127, 105, 105);
 		btnkipprovencaal.addActionListener(new ItemAdder(CashierController.KIP_KIP_PROVENCAAL));
 		frame.getContentPane().add(btnkipprovencaal);
 		
@@ -361,9 +365,9 @@ public class CashierGui {
 		btnkipstroganoff.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipstroganoff.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipstroganoff.setForeground(Color.WHITE);
-		btnkipstroganoff.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipstroganoff.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipstroganoff.setBackground(new Color(102, 51, 51));
-		btnkipstroganoff.setBounds(10, 321, 141, 141);
+		btnkipstroganoff.setBounds(10, 243, 105, 105);
 		btnkipstroganoff.addActionListener(new ItemAdder(CashierController.KIP_KIP_STROGANOFF));
 		frame.getContentPane().add(btnkipstroganoff);
 		
@@ -372,9 +376,9 @@ public class CashierGui {
 		btnkipappelmoes.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipappelmoes.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipappelmoes.setForeground(Color.WHITE);
-		btnkipappelmoes.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipappelmoes.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipappelmoes.setBackground(new Color(102, 51, 51));
-		btnkipappelmoes.setBounds(10, 625, 141, 141);
+		btnkipappelmoes.setBounds(10, 475, 105, 105);
 		btnkipappelmoes.addActionListener(new ItemAdder(CashierController.KIP_KIP_APPELMOES));
 		frame.getContentPane().add(btnkipappelmoes);
 		
@@ -383,9 +387,9 @@ public class CashierGui {
 		btnzalmnatuur.setVerticalTextPosition(SwingConstants.CENTER);
 		btnzalmnatuur.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnzalmnatuur.setForeground(Color.WHITE);
-		btnzalmnatuur.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnzalmnatuur.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnzalmnatuur.setBackground(new Color(102, 51, 51));
-		btnzalmnatuur.setBounds(463, 11, 141, 141);
+		btnzalmnatuur.setBounds(355, 12, 105, 105);
 		btnzalmnatuur.addActionListener(new ItemAdder(CashierController.ZALM_NATUUR));
 		frame.getContentPane().add(btnzalmnatuur);
 		
@@ -394,9 +398,9 @@ public class CashierGui {
 		btnzalmbarnaise.setVerticalTextPosition(SwingConstants.CENTER);
 		btnzalmbarnaise.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnzalmbarnaise.setForeground(Color.WHITE);
-		btnzalmbarnaise.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnzalmbarnaise.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnzalmbarnaise.setBackground(new Color(102, 51, 51));
-		btnzalmbarnaise.setBounds(463, 473, 141, 141);
+		btnzalmbarnaise.setBounds(355, 359, 105, 105);
 		btnzalmbarnaise.addActionListener(new ItemAdder(CashierController.ZALM_BEARNAISE));
 		frame.getContentPane().add(btnzalmbarnaise);
 		
@@ -405,9 +409,9 @@ public class CashierGui {
 		btnzalmprovencaal.setVerticalTextPosition(SwingConstants.CENTER);
 		btnzalmprovencaal.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnzalmprovencaal.setForeground(Color.WHITE);
-		btnzalmprovencaal.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnzalmprovencaal.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnzalmprovencaal.setBackground(new Color(102, 51, 51));
-		btnzalmprovencaal.setBounds(463, 164, 141, 141);
+		btnzalmprovencaal.setBounds(355, 127, 105, 105);
 		btnzalmprovencaal.addActionListener(new ItemAdder(CashierController.ZALM_PROVENCAAL));
 		frame.getContentPane().add(btnzalmprovencaal);
 		
@@ -416,9 +420,9 @@ public class CashierGui {
 		btnzalmstroganoff.setVerticalTextPosition(SwingConstants.CENTER);
 		btnzalmstroganoff.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnzalmstroganoff.setForeground(Color.WHITE);
-		btnzalmstroganoff.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnzalmstroganoff.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnzalmstroganoff.setBackground(new Color(102, 51, 51));
-		btnzalmstroganoff.setBounds(463, 321, 141, 141);
+		btnzalmstroganoff.setBounds(355, 243, 105, 105);
 		btnzalmstroganoff.addActionListener(new ItemAdder(CashierController.ZALM_STROGANOFF));
 		frame.getContentPane().add(btnzalmstroganoff);
 		
@@ -427,9 +431,9 @@ public class CashierGui {
 		btnzalmappelmoes.setVerticalTextPosition(SwingConstants.CENTER);
 		btnzalmappelmoes.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnzalmappelmoes.setForeground(Color.WHITE);
-		btnzalmappelmoes.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnzalmappelmoes.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnzalmappelmoes.setBackground(new Color(102, 51, 51));
-		btnzalmappelmoes.setBounds(463, 625, 141, 141);
+		btnzalmappelmoes.setBounds(355, 475, 105, 105);
 		btnzalmappelmoes.addActionListener(new ItemAdder(CashierController.ZALM_APPELMOES));
 		frame.getContentPane().add(btnzalmappelmoes);
 		
@@ -438,9 +442,9 @@ public class CashierGui {
 		btnkipnatuur_1.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipnatuur_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipnatuur_1.setForeground(Color.BLACK);
-		btnkipnatuur_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipnatuur_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipnatuur_1.setBackground(new Color(102, 51, 51));
-		btnkipnatuur_1.setBounds(614, 11, 141, 141);
+		btnkipnatuur_1.setBounds(470, 12, 105, 105);
 		btnkipnatuur_1.addActionListener(new ItemAdder(CashierController.KUIKEN_NATUUR));
 		frame.getContentPane().add(btnkipnatuur_1);
 		
@@ -449,9 +453,9 @@ public class CashierGui {
 		btnkipbarnaise_1.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipbarnaise_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipbarnaise_1.setForeground(Color.BLACK);
-		btnkipbarnaise_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipbarnaise_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipbarnaise_1.setBackground(new Color(102, 51, 51));
-		btnkipbarnaise_1.setBounds(614, 473, 141, 141);
+		btnkipbarnaise_1.setBounds(470, 359, 105, 105);
 		btnkipbarnaise_1.addActionListener(new ItemAdder(CashierController.KUIKEN_BEARNAISE));
 		frame.getContentPane().add(btnkipbarnaise_1);
 		
@@ -460,9 +464,9 @@ public class CashierGui {
 		btnkipprovencaal_1.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipprovencaal_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipprovencaal_1.setForeground(Color.BLACK);
-		btnkipprovencaal_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipprovencaal_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipprovencaal_1.setBackground(new Color(102, 51, 51));
-		btnkipprovencaal_1.setBounds(614, 164, 141, 141);
+		btnkipprovencaal_1.setBounds(470, 127, 105, 105);
 		btnkipprovencaal_1.addActionListener(new ItemAdder(CashierController.KUIKEN_PROVENCAAL));
 		frame.getContentPane().add(btnkipprovencaal_1);
 		
@@ -471,9 +475,9 @@ public class CashierGui {
 		btnkipstroganoff_1.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipstroganoff_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipstroganoff_1.setForeground(Color.BLACK);
-		btnkipstroganoff_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipstroganoff_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipstroganoff_1.setBackground(new Color(102, 51, 51));
-		btnkipstroganoff_1.setBounds(614, 321, 141, 141);
+		btnkipstroganoff_1.setBounds(470, 243, 105, 105);
 		btnkipstroganoff_1.addActionListener(new ItemAdder(CashierController.KUIKEN_STROGANOFF));
 		frame.getContentPane().add(btnkipstroganoff_1);
 		
@@ -482,9 +486,9 @@ public class CashierGui {
 		btnkipappelmoes_1.setVerticalTextPosition(SwingConstants.CENTER);
 		btnkipappelmoes_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnkipappelmoes_1.setForeground(Color.BLACK);
-		btnkipappelmoes_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnkipappelmoes_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnkipappelmoes_1.setBackground(new Color(102, 51, 51));
-		btnkipappelmoes_1.setBounds(614, 625, 141, 141);
+		btnkipappelmoes_1.setBounds(470, 475, 105, 105);
 		btnkipappelmoes_1.addActionListener(new ItemAdder(CashierController.KUIKEN_APPELMOES));
 		frame.getContentPane().add(btnkipappelmoes_1);
 		
@@ -493,9 +497,9 @@ public class CashierGui {
 		btnrundnatuur_1.setVerticalTextPosition(SwingConstants.CENTER);
 		btnrundnatuur_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnrundnatuur_1.setForeground(Color.WHITE);
-		btnrundnatuur_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnrundnatuur_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnrundnatuur_1.setBackground(new Color(102, 51, 51));
-		btnrundnatuur_1.setBounds(765, 11, 141, 141);
+		btnrundnatuur_1.setBounds(585, 11, 105, 105);
 		btnrundnatuur_1.addActionListener(new ItemAdder(CashierController.KALF_NATUUR));
 		frame.getContentPane().add(btnrundnatuur_1);
 		
@@ -504,9 +508,9 @@ public class CashierGui {
 		btnrundbarnaise_1.setVerticalTextPosition(SwingConstants.CENTER);
 		btnrundbarnaise_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnrundbarnaise_1.setForeground(Color.WHITE);
-		btnrundbarnaise_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnrundbarnaise_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnrundbarnaise_1.setBackground(new Color(102, 51, 51));
-		btnrundbarnaise_1.setBounds(765, 473, 141, 141);
+		btnrundbarnaise_1.setBounds(585, 359, 105, 105);
 		btnrundbarnaise_1.addActionListener(new ItemAdder(CashierController.KALF_BEARNAISE));
 		frame.getContentPane().add(btnrundbarnaise_1);
 		
@@ -515,9 +519,9 @@ public class CashierGui {
 		btnrundprovencaal_1.setVerticalTextPosition(SwingConstants.CENTER);
 		btnrundprovencaal_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnrundprovencaal_1.setForeground(Color.WHITE);
-		btnrundprovencaal_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnrundprovencaal_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnrundprovencaal_1.setBackground(new Color(102, 51, 51));
-		btnrundprovencaal_1.setBounds(765, 164, 141, 141);
+		btnrundprovencaal_1.setBounds(585, 127, 105, 105);
 		btnrundprovencaal_1.addActionListener(new ItemAdder(CashierController.KALF_PROVENCAAL));
 		frame.getContentPane().add(btnrundprovencaal_1);
 		
@@ -526,9 +530,9 @@ public class CashierGui {
 		btnrundstroganoff_1.setVerticalTextPosition(SwingConstants.CENTER);
 		btnrundstroganoff_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnrundstroganoff_1.setForeground(Color.WHITE);
-		btnrundstroganoff_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnrundstroganoff_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnrundstroganoff_1.setBackground(new Color(102, 51, 51));
-		btnrundstroganoff_1.setBounds(765, 321, 141, 141);
+		btnrundstroganoff_1.setBounds(585, 243, 105, 105);
 		btnrundstroganoff_1.addActionListener(new ItemAdder(CashierController.KALF_STROGANOFF));
 		frame.getContentPane().add(btnrundstroganoff_1);
 		
@@ -537,9 +541,9 @@ public class CashierGui {
 		btnrundappelmoes.setVerticalTextPosition(SwingConstants.CENTER);
 		btnrundappelmoes.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnrundappelmoes.setForeground(Color.WHITE);
-		btnrundappelmoes.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnrundappelmoes.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnrundappelmoes.setBackground(new Color(102, 51, 51));
-		btnrundappelmoes.setBounds(765, 625, 141, 141);
+		btnrundappelmoes.setBounds(585, 475, 105, 105);
 		btnrundappelmoes.addActionListener(new ItemAdder(CashierController.KALF_APPELMOES));
 		frame.getContentPane().add(btnrundappelmoes);
 		
@@ -548,9 +552,9 @@ public class CashierGui {
 		btnveggynatuur.setVerticalTextPosition(SwingConstants.CENTER);
 		btnveggynatuur.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnveggynatuur.setForeground(Color.WHITE);
-		btnveggynatuur.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnveggynatuur.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnveggynatuur.setBackground(new Color(102, 51, 51));
-		btnveggynatuur.setBounds(916, 11, 141, 141);
+		btnveggynatuur.setBounds(700, 11, 105, 105);
 		btnveggynatuur.addActionListener(new ItemAdder(CashierController.VEGGY_VEGGY_NATUUR));
 		frame.getContentPane().add(btnveggynatuur);
 		
@@ -560,9 +564,9 @@ public class CashierGui {
 		btnveggybarnaise.setVerticalTextPosition(SwingConstants.CENTER);
 		btnveggybarnaise.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnveggybarnaise.setForeground(Color.WHITE);
-		btnveggybarnaise.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnveggybarnaise.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnveggybarnaise.setBackground(new Color(102, 51, 51));
-		btnveggybarnaise.setBounds(916, 473, 141, 141);
+		btnveggybarnaise.setBounds(700, 359, 105, 105);
 		frame.getContentPane().add(btnveggybarnaise);
 		
 		JButton btnveggyprovencaal = new JButton("<html>Veggy (2)<br />Provencaal</html>");
@@ -570,9 +574,9 @@ public class CashierGui {
 		btnveggyprovencaal.setVerticalTextPosition(SwingConstants.CENTER);
 		btnveggyprovencaal.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnveggyprovencaal.setForeground(Color.WHITE);
-		btnveggyprovencaal.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnveggyprovencaal.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnveggyprovencaal.setBackground(new Color(102, 51, 51));
-		btnveggyprovencaal.setBounds(916, 164, 141, 141);
+		btnveggyprovencaal.setBounds(700, 127, 105, 105);
 		btnveggyprovencaal.addActionListener(new ItemAdder(CashierController.VEGGY_VEGGY_PROVENCAAL));
 		frame.getContentPane().add(btnveggyprovencaal);
 		
@@ -581,9 +585,9 @@ public class CashierGui {
 		btnveggystroganoff.setVerticalTextPosition(SwingConstants.CENTER);
 		btnveggystroganoff.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnveggystroganoff.setForeground(Color.WHITE);
-		btnveggystroganoff.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnveggystroganoff.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnveggystroganoff.setBackground(new Color(102, 51, 51));
-		btnveggystroganoff.setBounds(916, 321, 141, 141);
+		btnveggystroganoff.setBounds(700, 243, 105, 105);
 		btnveggystroganoff.addActionListener(new ItemAdder(CashierController.VEGGY_VEGGY_STROGANOFF));
 		frame.getContentPane().add(btnveggystroganoff);
 		
@@ -592,9 +596,9 @@ public class CashierGui {
 		btnveggyappelmoes.setVerticalTextPosition(SwingConstants.CENTER);
 		btnveggyappelmoes.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnveggyappelmoes.setForeground(Color.WHITE);
-		btnveggyappelmoes.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnveggyappelmoes.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnveggyappelmoes.setBackground(new Color(102, 51, 51));
-		btnveggyappelmoes.setBounds(916, 625, 141, 141);
+		btnveggyappelmoes.setBounds(700, 475, 105, 105);
 		btnveggyappelmoes.addActionListener(new ItemAdder(CashierController.VEGGY_VEGGY_APPELMOES));
 		frame.getContentPane().add(btnveggyappelmoes);
 		
@@ -603,9 +607,9 @@ public class CashierGui {
 		btnveggyappelmoes_1.setVerticalTextPosition(SwingConstants.CENTER);
 		btnveggyappelmoes_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnveggyappelmoes_1.setForeground(Color.WHITE);
-		btnveggyappelmoes_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnveggyappelmoes_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnveggyappelmoes_1.setBackground(new Color(102, 51, 51));
-		btnveggyappelmoes_1.setBounds(1067, 625, 141, 141);
+		btnveggyappelmoes_1.setBounds(815, 475, 105, 105);
 		btnveggyappelmoes_1.addActionListener(new ItemAdder(CashierController.VEGGY_APPELMOES));
 		frame.getContentPane().add(btnveggyappelmoes_1);
 		
@@ -614,9 +618,9 @@ public class CashierGui {
 		btnveggybarnaise_1.setVerticalTextPosition(SwingConstants.CENTER);
 		btnveggybarnaise_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnveggybarnaise_1.setForeground(Color.WHITE);
-		btnveggybarnaise_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnveggybarnaise_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnveggybarnaise_1.setBackground(new Color(102, 51, 51));
-		btnveggybarnaise_1.setBounds(1067, 473, 141, 141);
+		btnveggybarnaise_1.setBounds(815, 359, 105, 105);
 		btnveggybarnaise_1.addActionListener(new ItemAdder(CashierController.VEGGY_BEARNAISE));
 		frame.getContentPane().add(btnveggybarnaise_1);
 		
@@ -625,9 +629,9 @@ public class CashierGui {
 		btnveggystroganoff_1.setVerticalTextPosition(SwingConstants.CENTER);
 		btnveggystroganoff_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnveggystroganoff_1.setForeground(Color.WHITE);
-		btnveggystroganoff_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnveggystroganoff_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnveggystroganoff_1.setBackground(new Color(102, 51, 51));
-		btnveggystroganoff_1.setBounds(1067, 321, 141, 141);
+		btnveggystroganoff_1.setBounds(815, 243, 105, 105);
 		btnveggystroganoff_1.addActionListener(new ItemAdder(CashierController.VEGGY_STROGANOFF));
 		frame.getContentPane().add(btnveggystroganoff_1);
 		
@@ -636,9 +640,9 @@ public class CashierGui {
 		btnveggyprovencaal_1.setVerticalTextPosition(SwingConstants.CENTER);
 		btnveggyprovencaal_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnveggyprovencaal_1.setForeground(Color.WHITE);
-		btnveggyprovencaal_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnveggyprovencaal_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnveggyprovencaal_1.setBackground(new Color(102, 51, 51));
-		btnveggyprovencaal_1.setBounds(1067, 164, 141, 141);
+		btnveggyprovencaal_1.setBounds(815, 127, 105, 105);
 		btnveggyprovencaal_1.addActionListener(new ItemAdder(CashierController.VEGGY_PROVENCAAL));
 		frame.getContentPane().add(btnveggyprovencaal_1);
 		
@@ -647,29 +651,19 @@ public class CashierGui {
 		btnveggynatuur_1.setVerticalTextPosition(SwingConstants.CENTER);
 		btnveggynatuur_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnveggynatuur_1.setForeground(Color.WHITE);
-		btnveggynatuur_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnveggynatuur_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnveggynatuur_1.setBackground(new Color(102, 51, 51));
-		btnveggynatuur_1.setBounds(1067, 11, 141, 141);
+		btnveggynatuur_1.setBounds(815, 11, 105, 105);
 		btnveggynatuur_1.addActionListener(new ItemAdder(CashierController.VEGGY_NATUUR));
 		frame.getContentPane().add(btnveggynatuur_1);
-		
-		JButton btnSoep = new JButton("Soep\r\n");
-		btnSoep.setVerticalTextPosition(SwingConstants.CENTER);
-		btnSoep.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnSoep.setForeground(Color.WHITE);
-		btnSoep.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnSoep.setBackground(new Color(0, 0, 0));
-		btnSoep.setBounds(10, 829, 141, 141);
-		btnSoep.addActionListener(new ItemAdder(CashierController.SOEP));
-		frame.getContentPane().add(btnSoep);
 		
 		JButton btnBonnetje = new JButton("Bonnetje");
 		btnBonnetje.setVerticalTextPosition(SwingConstants.CENTER);
 		btnBonnetje.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnBonnetje.setForeground(Color.WHITE);
-		btnBonnetje.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnBonnetje.setBackground(new Color(102, 51, 51));
-		btnBonnetje.setBounds(312, 829, 141, 141);
+		btnBonnetje.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnBonnetje.setBackground(new Color(255, 69, 0));
+		btnBonnetje.setBounds(10, 612, 222, 105);
 		btnBonnetje.addActionListener(new ItemAdder(CashierController.BON));
 		frame.getContentPane().add(btnBonnetje);
 		
@@ -690,12 +684,12 @@ public class CashierGui {
 		lblNewLabel.setOpaque(true);
 		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(1307, 822, 206, 29);
+		lblNewLabel.setBounds(941, 672, 182, 29);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JButton btnBetalen = new JButton("Betalen");
 		btnBetalen.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		btnBetalen.setBounds(1612, 868, 239, 49);
+		btnBetalen.setBounds(1232, 723, 239, 49);
 		btnBetalen.addActionListener(e -> doPayment());
 		frame.getContentPane().add(btnBetalen);
 		
@@ -785,8 +779,8 @@ public class CashierGui {
 		hourLabel.setText(hour);
 	}
 	
-	public void setTotal(String total){
-		totalPrice.setText(total);
+	public void setTotal(double total){
+		totalPrice.setText("\u20AC "+df2.format(total));
 	}
 	
 	public void writeTicketList(List<String> data, List<String> prices){
