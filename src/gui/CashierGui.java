@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Locale;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -49,6 +50,7 @@ public class CashierGui {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
